@@ -8,7 +8,10 @@ import org.hibernate.SessionFactory;
 import org.o7planning.dao.DepartmentDAO;
 import org.o7planning.entity.Department;
 import org.springframework.transaction.annotation.Transactional;
- 
+
+/* Transactional annotation commits changes on success & throws on failure */
+/* Notification customization is often recommended */
+/* @Transactional(rollbackFor = Exception.class) */
 @Transactional
 public class DepartmentDAOImpl implements DepartmentDAO {
  
@@ -17,7 +20,8 @@ public class DepartmentDAOImpl implements DepartmentDAO {
   public void setSessionFactory(SessionFactory sessionFactory) {
       this.sessionFactory = sessionFactory;
   }
- 
+  
+  /* NOTE: SuppressWarning annotation is not an exception handler */
   @SuppressWarnings("unchecked")
   public List<Department> listDepartment() {
       Session session = this.sessionFactory.getCurrentSession();
